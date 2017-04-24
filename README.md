@@ -69,6 +69,13 @@ If you need both buildpacks and
 cannot resolve this behavior by eliminating the non-heroku-buildpack-apt pack, then just make sure
 this buildpack (heroku-buildpack-headless-chrome) comes after every other buildpack.
 
+## Attribution
+
+Inspired or derived from:
+
+1. https://github.com/heroku/heroku-buildpack-google-chrome
+2. https://github.com/captain401/heroku-buildpack-xvfb
+
 ## License
 
 MIT
