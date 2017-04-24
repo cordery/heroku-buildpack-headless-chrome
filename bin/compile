@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+APT_USR_BIN_DIR="$BUILD_DIR/.apt/usr/bin"
+
+echo "-----> Patching Xvfb..."
+ln -s /app/.apt/usr/bin $BUILD_DIR/xub
+sed -i s:/usr/bin:/app/xub: "$APT_USR_BIN_DIR/Xvfb"
+echo "       Xvfb patched."
+
+echo "-----> Installing ChromeDriver"
+BASE_URL="https://chromedriver.storage.googleapis.com"
+
+echo "       Determining the latest version of ChromeDriver"
+LATEST=$(wget -qO- "$BASE_URL/LATEST_RELEASE")
+
+echo "       Found ChromeDriver v$LATEST"
+
+DOWNLOAD_URL="$BASE_URL/$LATEST/chromedriver_linux64.zip"
+echo "       Downloading ChromeDriver linux64 from $DOWNLOAD_URL to $APT_USR_BIN_DIR"
+wget -q $DOWNLOAD_URL -O "$APT_USR_BIN_DIR/chromedriver_linux64.zip"
+echo "       Download successful, unzipping..."
+
+unzip -o "$APT_USR_BIN_DIR/chromedriver_linux64.zip" -d "$APT_USR_BIN_DIR"
+rm "$APT_USR_BIN_DIR/chromedriver_linux64.zip"
+echo "       $APT_USR_BIN_DIR/chromedriver is now ready"

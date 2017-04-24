@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+BUILD_DIR=$1
+# this pack is valid for apps with Xvfb installed via https://github.com/heroku/heroku-buildpack-apt
+if [ -f "$BUILD_DIR/.apt/usr/bin/Xvfb" ]; then
+  echo "Xvfb detected:  patching Xvfb and installing Chromedriver"
+  exit 0
+else
+  echo "Xvfb not detected!"
+  exit 1
+fi
