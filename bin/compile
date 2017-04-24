@@ -22,7 +22,7 @@ cat <<EOF >"$SHIM"
 EOF
 chmod +x "$SHIM"
 cp "$SHIM" "$BIN_DIR/google-chrome"
-echo "Chrome is now available as $BIN_DIR/google-chrome"
+echo "       Chrome is now available as $BIN_DIR/google-chrome"
 
 
 echo "-----> Installing ChromeDriver"
@@ -38,6 +38,6 @@ echo "       Downloading ChromeDriver linux64 from $DOWNLOAD_URL to $BIN_DIR"
 wget -q $DOWNLOAD_URL -O "$BIN_DIR/chromedriver_linux64.zip"
 echo "       Download successful, unzipping..."
 
-unzip -o "$BIN_DIR/chromedriver_linux64.zip" -d "$BIN_DIR"
+unzip -qo "$BIN_DIR/chromedriver_linux64.zip" -d "$BIN_DIR"
 rm "$BIN_DIR/chromedriver_linux64.zip"
 echo "       $BIN_DIR/chromedriver is now ready"
