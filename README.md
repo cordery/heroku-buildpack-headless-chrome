@@ -17,13 +17,7 @@ heroku-buildpack-apt installed files (/app/.apt/usr/bin).
 2. creates a shim for chrome which adds the `--headless --no-sandbox --disable-gpu` flags by default.
 3. installs the latest version of [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
 
-
-## Installation
-1. [heroku-buildpack-apt](https://github.com/heroku/heroku-buildpack-apt) should be added before this buildpack
-2. [heroku-buildpack-google-chrome](https://github.com/heroku/heroku-buildpack-google-chrome)
-3. An `Aptfile` in your root dir with the following contents
-
-        Xvfb
+Note:  This buildpack is a replacement for [heroku-buildpack-google-chrome](https://github.com/heroku/heroku-buildpack-google-chrome)
 
 ## Usage
 
@@ -49,6 +43,14 @@ Your app.json should list the buildpacks in this order:
             }
         }
     }
+
+## Framework Notes
+
+### Django
+
+Django's [LiveServerTestCase](https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase) does not require any modifications to work.  Adapt to your own pages and use as is.
+
+However, Django's default test runner "DiscoverRunner" cannot run tests on Heroku CI with Heroku Postgres because it requires createdb and dropdb permissions which Heroku does not provide.  In order to resolve this you must override the class to disable the createdb/dropdb behavior.  [An example of this for Postgres can be found in this gist](https://gist.github.com/cordery/d52d9ba44541fabaf4b012f4e62d675b).
 
 ## Troubleshooting
 #### I keep getting the following error: `an X display is required for keycode conversions, consider using Xvf`
